@@ -1,0 +1,27 @@
+# Varsayilan olarak tum dosya ve klasorleri haric tut.
+*
+
+# Git kurallari repoda bulunsun.
+!/.gitignore
+
+# Ana dizindeki uygulama dosyalari.
+!/*.html
+!/*.css
+!/*.js
+
+# Yalnizca uygulamanin stil ve script dosyalari.
+!/styles/
+!/styles/**/
+!/styles/**/*.css
+!/scripts/
+!/scripts/**/
+!/scripts/**/*.js
+
+# Gorseller, ikonlar ve fontlar.
+!/assets/
+!/assets/**
+
+# Yerel sistem dosyalarini assets icinde de haric tut.
+.DS_Store
+Thumbs.db
+Desktop.ini
