@@ -49,6 +49,16 @@ section {
 .meal-card h3 {
   margin: 0;
 }
+.meal-card button {
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: 1px solid #e76c1f;
+  border-radius: 8px;
+  background: #fff;
+  color: #e76c1f;
+  cursor: pointer;
+}
+
 @media (max-width: 540px) {
   .cover {
     height: 180px;
