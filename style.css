@@ -95,6 +95,19 @@ section {
 .basket-item p {
   margin: 0;
 }
+.basket-controls {
+  display: flex;
+  gap: 4px;
+}
+.basket-controls button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #fceadc;
+  border-radius: 6px;
+  background: transparent;
+  color: #fceadc;
+  cursor: pointer;
+}
 @media (max-width: 900px) {
   .content {
     flex-direction: column;

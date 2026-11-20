@@ -29,10 +29,15 @@ function renderCatalog() {
 }
 
 // Sepetteki tek bir yemeğin satırını döndürür
-function getBasketItemTemplate(meal) {
+function getBasketItemTemplate(meal, i) {
   return `
     <div class="basket-item">
       <p>${meal.quantity} x ${meal.name}</p>
+      <div class="basket-controls">
+        <button onclick="decreaseQuantity(${i})">−</button>
+        <button onclick="increaseQuantity(${i})">+</button>
+        <button onclick="removeFromBasket(${i})">x</button>
+      </div>
       <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")} €</strong>
     </div>
   `;
@@ -44,7 +49,7 @@ function renderBasket() {
   let html = "";
   for (let i = 0; i < meals.length; i++) {
     if (meals[i].quantity > 0) {
-      html += getBasketItemTemplate(meals[i]);
+      html += getBasketItemTemplate(meals[i], i);
     }
   }
   if (html === "") {
@@ -53,11 +58,37 @@ function renderBasket() {
   list.innerHTML = html;
 }
 
+// "Add to basket" butonunun yazısını günceller
+function updateAddButton(i) {
+  const button = document.getElementById("add-button-" + i);
+  if (meals[i].quantity > 0) {
+    button.textContent = "Added " + meals[i].quantity;
+  } else {
+    button.textContent = "Add to basket";
+  }
+}
+
 // Tıklanan yemeğin adedini 1 artırır
 function increaseQuantity(i) {
   meals[i].quantity += 1;
-  const button = document.getElementById("add-button-" + i);
-  button.textContent = "Added " + meals[i].quantity;
+  updateAddButton(i);
+  renderBasket();
+}
+
+// Adedi 1 azaltır; 0'ın altına inmez
+function decreaseQuantity(i) {
+  meals[i].quantity -= 1;
+  if (meals[i].quantity < 0) {
+    meals[i].quantity = 0;
+  }
+  updateAddButton(i);
+  renderBasket();
+}
+
+// Yemeği sepetten tamamen çıkarır
+function removeFromBasket(i) {
+  meals[i].quantity = 0;
+  updateAddButton(i);
   renderBasket();
 }
 
