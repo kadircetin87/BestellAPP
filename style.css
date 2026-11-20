@@ -59,6 +59,52 @@ section {
   cursor: pointer;
 }
 
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.content section {
+  flex: 1;
+  max-width: none;
+  margin: 32px 0;
+  padding: 0;
+}
+.basket {
+  flex: 0 0 300px;
+  margin-top: 32px;
+  padding: 16px;
+  background: #2f2f2f;
+  color: #fceadc;
+  border-radius: 12px;
+}
+.basket h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+.basket-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #4a4a4a;
+}
+.basket-item p {
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+  }
+  .basket {
+    flex: none;
+    width: 100%;
+    margin-top: 0;
+  }
+}
 @media (max-width: 540px) {
   .cover {
     height: 180px;

@@ -28,14 +28,41 @@ function renderCatalog() {
   list.innerHTML = html;
 }
 
+// Sepetteki tek bir yemeğin satırını döndürür
+function getBasketItemTemplate(meal) {
+  return `
+    <div class="basket-item">
+      <p>${meal.quantity} x ${meal.name}</p>
+      <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")} €</strong>
+    </div>
+  `;
+}
+
+// Sepetteki yemekleri ekrana basar
+function renderBasket() {
+  const list = document.getElementById("basket-list");
+  let html = "";
+  for (let i = 0; i < meals.length; i++) {
+    if (meals[i].quantity > 0) {
+      html += getBasketItemTemplate(meals[i]);
+    }
+  }
+  if (html === "") {
+    html = "<p>Your basket is empty.</p>";
+  }
+  list.innerHTML = html;
+}
+
 // Tıklanan yemeğin adedini 1 artırır
 function increaseQuantity(i) {
   meals[i].quantity += 1;
   const button = document.getElementById("add-button-" + i);
   button.textContent = "Added " + meals[i].quantity;
+  renderBasket();
 }
 
 // Sayfa yüklendiğinde çalışır
 function init() {
   renderCatalog();
+  renderBasket();
 }
