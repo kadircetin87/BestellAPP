@@ -108,6 +108,16 @@ section {
   color: #fceadc;
   cursor: pointer;
 }
+#basket-total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #4a4a4a;
+}
+#basket-total p {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
 @media (max-width: 900px) {
   .content {
     flex-direction: column;

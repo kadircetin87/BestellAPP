@@ -56,6 +56,34 @@ function renderBasket() {
     html = "<p>Your basket is empty.</p>";
   }
   list.innerHTML = html;
+  renderTotals();
+}
+
+// Sepetteki yemeklerin toplam fiyatını hesaplar
+function getSubtotal() {
+  let sum = 0;
+  for (let i = 0; i < meals.length; i++) {
+    sum += meals[i].price * meals[i].quantity;
+  }
+  return sum;
+}
+
+// Teslimat ücreti dahil toplamı döndürür
+function getTotal() {
+  return getSubtotal() + deliveryFee;
+}
+
+// Ara toplam, teslimat ve toplamı ekrana basar
+function renderTotals() {
+  const box = document.getElementById("basket-total");
+  if (getSubtotal() === 0) {
+    box.innerHTML = "";
+    return;
+  }
+  let html = `<p>Subtotal: ${getSubtotal().toFixed(2).replace(".", ",")} €</p>`;
+  html += `<p>Delivery fee: ${deliveryFee.toFixed(2).replace(".", ",")} €</p>`;
+  html += `<p><strong>Total: ${getTotal().toFixed(2).replace(".", ",")} €</strong></p>`;
+  box.innerHTML = html;
 }
 
 // "Add to basket" butonunun yazısını günceller
