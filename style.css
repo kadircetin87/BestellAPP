@@ -80,6 +80,8 @@ section {
   background: #2f2f2f;
   color: #fceadc;
   border-radius: 12px;
+  position: sticky;
+  top: 16px;
 }
 .basket h2 {
   margin-top: 0;
@@ -118,6 +120,10 @@ section {
   justify-content: space-between;
   margin: 4px 0;
 }
+#basket-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
 @media (max-width: 900px) {
   .content {
     flex-direction: column;
@@ -126,6 +132,7 @@ section {
     flex: none;
     width: 100%;
     margin-top: 0;
+    position: static;
   }
 }
 @media (max-width: 540px) {
