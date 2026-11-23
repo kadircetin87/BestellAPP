@@ -34,9 +34,9 @@ function getBasketItemTemplate(meal, i) {
     <div class="basket-item">
       <p>${meal.quantity} x ${meal.name}</p>
       <div class="basket-controls">
-        <button onclick="decreaseQuantity(${i})">−</button>
-        <button onclick="increaseQuantity(${i})">+</button>
-        <button onclick="removeFromBasket(${i})">x</button>
+        <button aria-label="Decrease quantity of ${meal.name}" onclick="decreaseQuantity(${i})">−</button>
+        <button aria-label="Increase quantity of ${meal.name}" onclick="increaseQuantity(${i})">+</button>
+        <button aria-label="Remove ${meal.name} from basket" onclick="removeFromBasket(${i})">x</button>
       </div>
       <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")} €</strong>
     </div>
