@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BurgerHouse | BestellApp</title>
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="scripts/db.js"></script>
     <script defer src="script.js"></script>
@@ -11,22 +12,40 @@
   <body onload="init()">
     <header>BestellApp</header>
     <main>
-      <img class="cover" src="assets/img/cover-web.jpg" alt="" />
-      <h1>BurgerHouse</h1>
+      <div class="hero">
+        <img class="cover" src="assets/img/cover-web.jpg" alt="" />
+        <img class="restaurant-logo" src="assets/icons/burger-house-logo.png" alt="" />
+      </div>
+      <div class="restaurant-name">
+        <h1>BurgerHouse</h1>
+        <img src="assets/icons/restaurant-rating-badge.png" alt="Rated 4.1 out of 5 from 317 reviews" />
+      </div>
       <p class="intro">
         The best of Burgers, Pizza, and Greens, all in one great place.
       </p>
+      <p class="intro">Delivery fee: 4,99 € · 30–35 min</p>
       <div class="content">
         <section>
           <h2>Menu</h2>
           <div id="meal-list"></div>
         </section>
-        <section class="basket">
+        <section class="basket" id="basket">
           <h2>Your Basket</h2>
           <div id="basket-list"></div>
           <div id="basket-total"></div>
+          <button id="buy" onclick="placeOrder()" hidden>Buy now</button>
         </section>
       </div>
     </main>
+    <footer>© 2025 BurgerHouse · Imprint · Cookie Preferences</footer>
+    <button id="basket-toggle" onclick="openBasket()" aria-haspopup="dialog">Basket <span id="basket-count">0</span></button>
+    <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
+      <button onclick="this.parentElement.close()">Close basket</button>
+    </dialog>
+    <dialog id="order-dialog" aria-labelledby="order-title">
+      <h2 id="order-title">Test order confirmed</h2>
+      <p>Your basket has been cleared. No payment was taken.</p>
+      <button onclick="this.parentElement.close()">Back to menu</button>
+    </dialog>
   </body>
 </html>

@@ -52,10 +52,8 @@ function renderBasket() {
       html += getBasketItemTemplate(meals[i], i);
     }
   }
-  if (html === "") {
-    html = "<p>Your basket is empty.</p>";
-  }
-  list.innerHTML = html;
+  list.innerHTML = html || "<p>Your basket is empty.</p>";
+  updateBasketControls();
   renderTotals();
 }
 
@@ -124,4 +122,46 @@ function removeFromBasket(i) {
 function init() {
   renderCatalog();
   renderBasket();
+  window.matchMedia("(min-width: 901px)").addEventListener("change", closeDesktopDialog);
+}
+
+// Rozette farklı yemekleri değil, toplam adedi gösterir.
+function updateBasketControls() {
+  let count = 0;
+  for (let i = 0; i < meals.length; i++) {
+    count += meals[i].quantity;
+  }
+  document.getElementById("basket-count").textContent = count;
+  document.getElementById("buy").hidden = count === 0;
+}
+
+// Aynı sepeti mobil pencerede açar.
+function openBasket() {
+  const dialog = document.getElementById("basket-dialog");
+  dialog.appendChild(document.getElementById("basket"));
+  dialog.showModal();
+}
+
+// Kapatıldığında sepeti menünün yanına geri taşır.
+function restoreBasket() {
+  document.querySelector(".content").appendChild(document.getElementById("basket"));
+}
+
+// Masaüstüne geçildiğinde açık mobil pencereyi kapatır.
+function closeDesktopDialog(event) {
+  const dialog = document.getElementById("basket-dialog");
+  if (event.matches && dialog.open) dialog.close();
+}
+
+// Test siparişinden sonra adetleri ve görünümü sıfırlar.
+function placeOrder() {
+  if (getSubtotal() === 0) return;
+  const dialog = document.getElementById("basket-dialog");
+  if (dialog.open) dialog.close();
+  for (let i = 0; i < meals.length; i++) {
+    meals[i].quantity = 0;
+    updateAddButton(i);
+  }
+  renderBasket();
+  document.getElementById("order-dialog").showModal();
 }
