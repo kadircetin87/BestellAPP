@@ -34,13 +34,21 @@ function getBasketItemTemplate(meal, i) {
     <div class="basket-item">
       <p>${meal.quantity} x ${meal.name}</p>
       <div class="basket-controls">
-        <button aria-label="Decrease quantity of ${meal.name}" onclick="decreaseQuantity(${i})">−</button>
-        <button aria-label="Increase quantity of ${meal.name}" onclick="increaseQuantity(${i})">+</button>
-        <button aria-label="Remove ${meal.name} from basket" onclick="removeFromBasket(${i})">x</button>
+        ${getBasketControls(meal, i)}
       </div>
-      <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")} €</strong>
+      <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")}€</strong>
     </div>
   `;
+}
+
+// Tek adette silme, daha fazla adette azaltma ve silme seçeneklerini gösterir.
+function getBasketControls(meal, i) {
+  const remove = `<button class="remove" aria-label="Remove ${meal.name} from basket" onclick="removeFromBasket(${i})"><img src="assets/icons/trash-icon.png" alt=""></button>`;
+  let controls = remove;
+  if (meal.quantity > 1) {
+    controls += `<button aria-label="Decrease quantity of ${meal.name}" onclick="decreaseQuantity(${i})">−</button>`;
+  }
+  return controls + `<span>${meal.quantity}</span><button aria-label="Increase quantity of ${meal.name}" onclick="increaseQuantity(${i})">+</button>`;
 }
 
 // Sepetteki yemekleri ekrana basar
@@ -52,7 +60,7 @@ function renderBasket() {
       html += getBasketItemTemplate(meals[i], i);
     }
   }
-  list.innerHTML = html || "<p>Your basket is empty.</p>";
+  list.innerHTML = html || '<p class="empty">Nothing here yet.<br>Go ahead and choose something delicious!</p><img class="empty-cart" src="assets/icons/shopping_cart.png" alt="">';
   updateBasketControls();
   renderTotals();
 }
@@ -78,9 +86,11 @@ function renderTotals() {
     box.innerHTML = "";
     return;
   }
-  let html = `<p>Subtotal: ${getSubtotal().toFixed(2).replace(".", ",")} €</p>`;
-  html += `<p>Delivery fee: ${deliveryFee.toFixed(2).replace(".", ",")} €</p>`;
-  html += `<p><strong>Total: ${getTotal().toFixed(2).replace(".", ",")} €</strong></p>`;
+  const total = getTotal().toFixed(2).replace(".", ",") + "€";
+  let html = `<p>Subtotal <span>${getSubtotal().toFixed(2).replace(".", ",")} €</span></p>`;
+  html += `<p>Delivery fee <span>${deliveryFee.toFixed(2).replace(".", ",")}€</span></p>`;
+  html += `<p>Total <span>${total}</span></p>`;
+  document.getElementById("buy").textContent = `Buy now (${total})`;
   box.innerHTML = html;
 }
 

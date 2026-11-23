@@ -40,7 +40,7 @@
     <footer>© 2025 BurgerHouse · Imprint · Cookie Preferences</footer>
     <button id="basket-toggle" onclick="openBasket()" aria-haspopup="dialog">Basket <span id="basket-count">0</span></button>
     <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
-      <button onclick="this.parentElement.close()">Close basket</button>
+      <button aria-label="Close basket" onclick="this.parentElement.close()">×</button>
     </dialog>
     <dialog id="order-dialog" aria-labelledby="order-title">
       <h2 id="order-title">Test order confirmed</h2>
