@@ -174,11 +174,13 @@ function closeDesktopDialog() {
 
 // Pencere açıkken arka planın kaymasını engeller.
 function lockScroll() {
+  document.documentElement.classList.add("no-scroll");
   document.body.classList.add("no-scroll");
 }
 
 // Pencere kapandığında sayfa kaydırmasını geri açar.
 function unlockScroll() {
+  document.documentElement.classList.remove("no-scroll");
   document.body.classList.remove("no-scroll");
 }
 
@@ -192,6 +194,17 @@ function placeOrder() {
     updateAddButton(i);
   }
   renderBasket();
-  lockScroll();
-  document.getElementById("order-dialog").showModal();
+  showOrderToast();
+}
+
+// Onay mesajını gösterir ve 4 saniye sonra kendiliğinden gizler.
+function showOrderToast() {
+  const toast = document.getElementById("order-toast");
+  toast.hidden = false;
+  setTimeout(hideOrderToast, 4000);
+}
+
+// Onay mesajını gizler.
+function hideOrderToast() {
+  document.getElementById("order-toast").hidden = true;
 }

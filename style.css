@@ -34,16 +34,21 @@ h2 {
 button {
   font-family: inherit;
 }
+/* Ust serit: renk tam genislikte, icerik 1440 cercevesinde ortalanir. */
 header {
+  background: #e76c1f;
+}
+.header-inner {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 88px;
-  padding: 0 5%;
-  background: #e76c1f;
+  min-height: 128px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 header img {
-  height: 34px;
+  height: 42px;
   width: auto;
 }
 main {
@@ -162,18 +167,20 @@ main {
   cursor: pointer;
 }
 
+/* Icerik cercevesi: kart kolonu + sepet ayni hizada baslar. */
 .content {
   display: flex;
   align-items: flex-start;
   gap: 24px;
-  max-width: 1120px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 16px;
 }
 /* Masaüstü ve mobil aynı ürün listesini kullanır. */
 .content .basket,
 #basket-dialog .basket {
-  flex: 0 0 435px;
+  flex: 0 0 auto;
+  width: min(435px, 42%);
   display: flex;
   flex-direction: column;
   height: 794px;
@@ -244,7 +251,6 @@ main {
   border: 0;
   padding: 0;
   cursor: pointer;
-  font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
   line-height: 1;
@@ -311,10 +317,14 @@ main {
   }
 }
 footer {
-  padding: 24px 16px;
-  background: #363434;
-  color: white;
+  background: #e76c1f;
+  color: #fff;
   text-align: center;
+}
+.footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px 16px;
 }
 #basket-toggle {
   display: none;
@@ -343,8 +353,49 @@ dialog {
 dialog::backdrop {
   background: rgb(0 0 0 / 55%);
 }
-.no-scroll {
+/* Pencere acikken sayfa kaymasin: hem html hem body gerekir. */
+html.no-scroll,
+body.no-scroll {
   overflow: hidden;
+}
+/* Sipariş onayı: Figma'daki gibi ekranın altında kısa bildirim. */
+.order-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: calc(100% - 32px);
+  padding: 14px 18px;
+  background: #e76c1f;
+  color: #241b16;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 30%);
+  z-index: 50;
+}
+.order-toast[hidden] {
+  display: none;
+}
+.order-toast img {
+  width: 80px;
+  height: 57px;
+  object-fit: contain;
+}
+.order-toast p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+}
+.order-toast button {
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
 }
 @media (max-width: 900px) {
   .content {
@@ -353,7 +404,7 @@ dialog::backdrop {
   .content .basket {
     display: none;
   }
-  footer {
+  .footer-inner {
     padding-bottom: 80px;
   }
   #basket-toggle {
@@ -387,6 +438,7 @@ dialog::backdrop {
   #basket-dialog .basket {
     position: static;
     margin: 0;
+    width: 100%;
     padding: 38px 22px 41px;
     height: min(662px, calc(100vh - 16px));
     max-height: none;
@@ -458,9 +510,7 @@ dialog::backdrop {
     width: 100%;
     height: 140px;
   }
-  .meal-card h3 {
-    grid-column: 1 / -1;
-  }
+  .meal-card h3,
   .meal-card p {
     grid-column: 1 / -1;
   }

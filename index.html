@@ -11,14 +11,16 @@
   </head>
   <body onload="init()">
     <header>
-      <img class="header-icon" src="assets/icons/takeout-bag-icon.png" alt="" />
-      <img class="wordmark" src="assets/icons/bestell-app-wordmark.png" alt="BestellApp" />
-    </header>
-    <main>
-      <div class="hero">
-        <img class="cover" src="assets/img/cover.jpg" alt="" />
-        <img class="restaurant-logo" src="assets/icons/burger-house-logo.png" alt="" />
+      <div class="header-inner">
+        <img class="header-icon" src="assets/icons/takeout-bag-icon.png" alt="" />
+        <img class="wordmark" src="assets/icons/bestell-app-wordmark.png" alt="BestellApp" />
       </div>
+    </header>
+    <div class="hero">
+      <img class="cover" src="assets/img/cover.jpg" alt="" />
+      <img class="restaurant-logo" src="assets/icons/burger-house-logo.png" alt="" />
+    </div>
+    <main>
       <div class="restaurant-name">
         <h1>BurgerHouse</h1>
         <img src="assets/icons/restaurant-rating-badge.png" alt="Rated 4.1 out of 5 from 317 reviews" />
@@ -26,7 +28,6 @@
       <p class="intro">
         The best of Burgers, Pizza, and Greens, all in one great place.
       </p>
-      <p class="intro">Delivery fee: 4,99 € · 30–35 min</p>
       <div class="content">
         <section class="menu">
           <h2 class="category-title">
@@ -53,15 +54,17 @@
         </section>
       </div>
     </main>
-    <footer>© 2025 BurgerHouse · Imprint · Cookie Preferences</footer>
+    <footer>
+      <div class="footer-inner">© 2025 BurgerHouse · Imprint · Cookie Preferences</div>
+    </footer>
     <button id="basket-toggle" onclick="openBasket()" aria-haspopup="dialog">Basket <span id="basket-count">0</span></button>
     <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
       <button aria-label="Close basket" onclick="this.parentElement.close()">×</button>
     </dialog>
-    <dialog id="order-dialog" aria-labelledby="order-title" onclose="unlockScroll()">
-      <h2 id="order-title">Test order confirmed</h2>
-      <p>Your basket has been cleared. No payment was taken.</p>
-      <button onclick="this.parentElement.close()">Back to menu</button>
-    </dialog>
+    <div id="order-toast" class="order-toast" hidden>
+      <img src="assets/icons/order-confirmed-icon.png" alt="" />
+      <p><strong>Order confirmed!</strong><br />Your food is on the way!</p>
+      <button aria-label="Close message" onclick="hideOrderToast()">×</button>
+    </div>
   </body>
 </html>
