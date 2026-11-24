@@ -18,25 +18,32 @@ function renderMealCard(meal, i) {
   `;
 }
 
-// Tüm yemekleri ekrana basar
+// Kategorileri kendi listelerine basar
 function renderCatalog() {
-  const list = document.getElementById("meal-list");
+  renderCategory("burger-list", 0, 4);
+  renderCategory("pizza-list", 4, 8);
+  renderCategory("salad-list", 8, meals.length);
+}
+
+// Tek bir kategoriyi ekrana basar
+function renderCategory(id, start, end) {
   let html = "";
-  for (let i = 0; i < meals.length; i++) {
+  for (let i = start; i < end; i++) {
     html += renderMealCard(meals[i], i);
   }
-  list.innerHTML = html;
+  document.getElementById(id).innerHTML = html;
 }
 
 // Sepetteki tek bir yemeğin satırını döndürür
 function getBasketItemTemplate(meal, i) {
+  const extraClass = meal.quantity > 1 ? " has-remove" : "";
   return `
-    <div class="basket-item">
+    <div class="basket-item${extraClass}">
       <p>${meal.quantity} x ${meal.name}</p>
       <div class="basket-controls">
         ${getBasketControls(meal, i)}
       </div>
-      <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")}€</strong>
+      <strong>${(meal.price * meal.quantity).toFixed(2).replace(".", ",")} €</strong>
     </div>
   `;
 }
@@ -86,9 +93,9 @@ function renderTotals() {
     box.innerHTML = "";
     return;
   }
-  const total = getTotal().toFixed(2).replace(".", ",") + "€";
+  const total = getTotal().toFixed(2).replace(".", ",") + " €";
   let html = `<p>Subtotal <span>${getSubtotal().toFixed(2).replace(".", ",")} €</span></p>`;
-  html += `<p>Delivery fee <span>${deliveryFee.toFixed(2).replace(".", ",")}€</span></p>`;
+  html += `<p>Delivery fee <span>${deliveryFee.toFixed(2).replace(".", ",")} €</span></p>`;
   html += `<p>Total <span>${total}</span></p>`;
   document.getElementById("buy").textContent = `Buy now (${total})`;
   box.innerHTML = html;
@@ -132,7 +139,7 @@ function removeFromBasket(i) {
 function init() {
   renderCatalog();
   renderBasket();
-  window.matchMedia("(min-width: 901px)").addEventListener("change", closeDesktopDialog);
+  window.addEventListener("resize", closeDesktopDialog);
 }
 
 // Rozette farklı yemekleri değil, toplam adedi gösterir.
@@ -150,17 +157,29 @@ function openBasket() {
   const dialog = document.getElementById("basket-dialog");
   dialog.appendChild(document.getElementById("basket"));
   dialog.showModal();
+  lockScroll();
 }
 
 // Kapatıldığında sepeti menünün yanına geri taşır.
 function restoreBasket() {
   document.querySelector(".content").appendChild(document.getElementById("basket"));
+  unlockScroll();
 }
 
 // Masaüstüne geçildiğinde açık mobil pencereyi kapatır.
-function closeDesktopDialog(event) {
+function closeDesktopDialog() {
   const dialog = document.getElementById("basket-dialog");
-  if (event.matches && dialog.open) dialog.close();
+  if (window.innerWidth > 900 && dialog.open) dialog.close();
+}
+
+// Pencere açıkken arka planın kaymasını engeller.
+function lockScroll() {
+  document.body.classList.add("no-scroll");
+}
+
+// Pencere kapandığında sayfa kaydırmasını geri açar.
+function unlockScroll() {
+  document.body.classList.remove("no-scroll");
 }
 
 // Test siparişinden sonra adetleri ve görünümü sıfırlar.
@@ -173,5 +192,6 @@ function placeOrder() {
     updateAddButton(i);
   }
   renderBasket();
+  lockScroll();
   document.getElementById("order-dialog").showModal();
 }

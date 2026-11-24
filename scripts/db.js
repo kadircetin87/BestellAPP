@@ -38,7 +38,7 @@ const meals = [
     name: "Pizza Chorizo",
     description: "Tomato slices, mozzarella and chorizo.",
     price: 13.90,
-    image: "assets/img/chorizo-web.jpg",
+    image: "assets/img/chorizo.jpg",
     quantity: 0
   },
   {
@@ -52,10 +52,9 @@ const meals = [
     name: "Quattro Formaggi with Chicken",
     description: "Chicken, mozzarella, gorgonzola, fontina and Parmigiano Reggiano.",
     price: 15.90,
-    image: "assets/img/Quattro-Formaggi-with-chicken.jpg",
+    image: "assets/img/quattro-formaggi.jpg",
     quantity: 0
-  }
-   ,
+  },
   {
     name: "Warm beef arugula salad",
     description: "Beef, arugula, field salad, Greek feta, cherry tomatoes, sun-dried tomatoes and balsamic-vinegar dressing.",

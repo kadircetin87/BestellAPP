@@ -10,10 +10,13 @@
     <script defer src="script.js"></script>
   </head>
   <body onload="init()">
-    <header>BestellApp</header>
+    <header>
+      <img class="header-icon" src="assets/icons/takeout-bag-icon.png" alt="" />
+      <img class="wordmark" src="assets/icons/bestell-app-wordmark.png" alt="BestellApp" />
+    </header>
     <main>
       <div class="hero">
-        <img class="cover" src="assets/img/cover-web.jpg" alt="" />
+        <img class="cover" src="assets/img/cover.jpg" alt="" />
         <img class="restaurant-logo" src="assets/icons/burger-house-logo.png" alt="" />
       </div>
       <div class="restaurant-name">
@@ -25,9 +28,22 @@
       </p>
       <p class="intro">Delivery fee: 4,99 € · 30–35 min</p>
       <div class="content">
-        <section>
-          <h2>Menu</h2>
-          <div id="meal-list"></div>
+        <section class="menu">
+          <h2 class="category-title">
+            <img src="assets/icons/burger-category-icon.png" alt="" />
+            Burger<span class="category-note"> &amp; Sandwiches</span>
+          </h2>
+          <div id="burger-list"></div>
+          <h2 class="category-title">
+            <img src="assets/icons/pizza-category-icon.png" alt="" />
+            Pizza <small>(30cm)</small>
+          </h2>
+          <div id="pizza-list"></div>
+          <h2 class="category-title">
+            <img src="assets/icons/salad-category-icon.png" alt="" />
+            Salad
+          </h2>
+          <div id="salad-list"></div>
         </section>
         <section class="basket" id="basket">
           <h2>Your Basket</h2>
@@ -42,7 +58,7 @@
     <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
       <button aria-label="Close basket" onclick="this.parentElement.close()">×</button>
     </dialog>
-    <dialog id="order-dialog" aria-labelledby="order-title">
+    <dialog id="order-dialog" aria-labelledby="order-title" onclose="unlockScroll()">
       <h2 id="order-title">Test order confirmed</h2>
       <p>Your basket has been cleared. No payment was taken.</p>
       <button onclick="this.parentElement.close()">Back to menu</button>
