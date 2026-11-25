@@ -61,10 +61,13 @@
     <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
       <button aria-label="Close basket" onclick="this.parentElement.close()">×</button>
     </dialog>
-    <div id="order-toast" class="order-toast" hidden>
-      <img src="assets/icons/order-confirmed-icon.png" alt="" />
-      <p><strong>Order confirmed!</strong><br />Your food is on the way!</p>
-      <button aria-label="Close message" onclick="hideOrderToast()">×</button>
+    <div id="order-toast" class="order-toast" role="alertdialog" aria-modal="true" aria-labelledby="order-toast-title" hidden>
+      <div class="order-toast-box">
+        <img src="assets/icons/order-confirmed-icon.png" alt="" />
+        <h2 id="order-toast-title">Order confirmed!</h2>
+        <p>Your food is on the way!</p>
+        <button id="order-toast-close" aria-label="Close message" onclick="hideOrderToast()">×</button>
+      </div>
     </div>
   </body>
 </html>

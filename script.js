@@ -140,6 +140,7 @@ function init() {
   renderCatalog();
   renderBasket();
   window.addEventListener("resize", closeDesktopDialog);
+  document.addEventListener("keydown", closeToastOnEscape);
 }
 
 // Rozette farklı yemekleri değil, toplam adedi gösterir.
@@ -157,13 +158,23 @@ function openBasket() {
   const dialog = document.getElementById("basket-dialog");
   dialog.appendChild(document.getElementById("basket"));
   dialog.showModal();
-  lockScroll();
+  syncScrollLock();
 }
 
 // Kapatıldığında sepeti menünün yanına geri taşır.
 function restoreBasket() {
   document.querySelector(".content").appendChild(document.getElementById("basket"));
-  unlockScroll();
+  syncScrollLock();
+}
+
+// Kilit kararı: onay mesajı veya sepet penceresi açıksa sayfa kaymaz.
+function syncScrollLock() {
+  const busy = !document.getElementById("order-toast").hidden || document.getElementById("basket-dialog").open;
+  if (busy) {
+    lockScroll();
+  } else {
+    unlockScroll();
+  }
 }
 
 // Masaüstüne geçildiğinde açık mobil pencereyi kapatır.
@@ -197,14 +208,23 @@ function placeOrder() {
   showOrderToast();
 }
 
-// Onay mesajını gösterir ve 4 saniye sonra kendiliğinden gizler.
+// Onay mesajını gösterir; arka planı kilitler ve 4 saniye sonra gizler.
 function showOrderToast() {
   const toast = document.getElementById("order-toast");
   toast.hidden = false;
+  syncScrollLock();
+  document.getElementById("order-toast-close").focus();
   setTimeout(hideOrderToast, 4000);
 }
 
-// Onay mesajını gizler.
+// Onay mesajını gizler; sayfa kilidini yeniden değerlendirir.
 function hideOrderToast() {
   document.getElementById("order-toast").hidden = true;
+  syncScrollLock();
+}
+
+// Onay mesajı açıkken Escape tuşuyla kapatmayı sağlar.
+function closeToastOnEscape(event) {
+  const open = !document.getElementById("order-toast").hidden;
+  if (event.key === "Escape" && open) hideOrderToast();
 }
