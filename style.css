@@ -33,6 +33,7 @@ h2 {
 }
 button {
   font-family: inherit;
+  font-size: 18px;
 }
 /* Ust serit: renk tam genislikte, icerik 1440 cercevesinde ortalanir. */
 header {
@@ -148,6 +149,7 @@ main {
 .meal-card p {
   grid-column: 1;
   margin: 0;
+  font-size: 18px;
 }
 .meal-card strong {
   grid-column: 2;
@@ -165,6 +167,7 @@ main {
   background: #fff;
   color: #e76c1f;
   cursor: pointer;
+  min-width: 140px;
 }
 
 /* Icerik cercevesi: kart kolonu + sepet ayni hizada baslar. */
@@ -245,6 +248,11 @@ main {
   align-items: center;
   gap: 8px;
 }
+.basket-controls span {
+  min-width: 32px;
+  text-align: center;
+}
+
 .basket-controls button {
   color: inherit;
   background: none;
@@ -326,14 +334,20 @@ footer {
   margin: 0 auto;
   padding: 28px 16px;
 }
-#basket-toggle {
+.mobile-basket-bar {
   display: none;
 }
 #basket-count {
-  padding: 2px 7px;
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 20px;
+  padding: 0 3px;
+  font-size: 16px;
+  line-height: 20px;
   border-radius: 12px;
-  background: white;
-  color: #363434;
+  background: #fceadc;
+  color: #9a4108;
 }
 #basket-toggle,
 dialog > button {
@@ -421,12 +435,33 @@ body.no-scroll {
   .footer-inner {
     padding-bottom: 80px;
   }
-  #basket-toggle {
-    display: block;
+  .mobile-basket-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
     position: fixed;
-    bottom: 12px;
-    right: 16px;
-    box-shadow: 0 4px 14px rgb(0 0 0 / 28%);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 64px;
+    background: #363534;
+    z-index: 5;
+  }
+  #basket-toggle {
+    padding: 7px;
+    background: transparent;
+  }
+  .bar-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+  }
+  .bar-icon img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
   }
   #basket-dialog {
     margin: auto;
@@ -492,6 +527,10 @@ body.no-scroll {
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 21px;
+  }
+  .category-title small,
+  .category-note {
+    font-size: 18px;
   }
   .category-title img {
     width: 38px;

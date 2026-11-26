@@ -57,7 +57,17 @@
     <footer>
       <div class="footer-inner">© 2025 BurgerHouse · Imprint · Cookie Preferences</div>
     </footer>
-    <button id="basket-toggle" onclick="openBasket()" aria-haspopup="dialog">Basket <span id="basket-count">0</span></button>
+    <div class="mobile-basket-bar">
+      <a class="bar-icon" href="#" aria-label="Home"><img src="assets/icons/Home.png" alt="" /></a>
+      <span class="bar-icon"><img src="assets/icons/Profile.png" alt="" /></span>
+      <span class="bar-icon"><img src="assets/icons/orders.png" alt="" /></span>
+      <button id="basket-toggle" onclick="openBasket()" aria-haspopup="dialog">
+        <span class="bar-icon">
+          <img src="assets/icons/shopping_cart-neu.png" alt="Basket" />
+          <span id="basket-count">0</span>
+        </span>
+      </button>
+    </div>
     <dialog id="basket-dialog" aria-label="Your basket" onclose="restoreBasket()">
       <button aria-label="Close basket" onclick="this.parentElement.close()">×</button>
     </dialog>

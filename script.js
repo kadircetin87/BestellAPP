@@ -1,3 +1,11 @@
+// Sayfa yüklendiğinde çalışır
+function init() {
+  renderCatalog();
+  renderBasket();
+  window.addEventListener("resize", closeDesktopDialog);
+  document.addEventListener("keydown", closeToastOnEscape);
+}
+
 // Sepete ekleme düğmesini döndürür
 function getAddButtonTemplate(i) {
   return `<button id="add-button-${i}" onclick="increaseQuantity(${i})">Add to basket</button>`;
@@ -20,16 +28,18 @@ function renderMealCard(meal, i) {
 
 // Kategorileri kendi listelerine basar
 function renderCatalog() {
-  renderCategory("burger-list", 0, 4);
-  renderCategory("pizza-list", 4, 8);
-  renderCategory("salad-list", 8, meals.length);
+  renderCategory("burger-list","burger");
+  renderCategory("pizza-list", "pizza");
+  renderCategory("salad-list", "salad");
 }
 
 // Tek bir kategoriyi ekrana basar
-function renderCategory(id, start, end) {
+function renderCategory(id, category) {
   let html = "";
-  for (let i = start; i < end; i++) {
+  for (let i = 0; i < meals.length; i++) {
+  if (meals[i].category === category){
     html += renderMealCard(meals[i], i);
+  }
   }
   document.getElementById(id).innerHTML = html;
 }
@@ -133,14 +143,6 @@ function removeFromBasket(i) {
   meals[i].quantity = 0;
   updateAddButton(i);
   renderBasket();
-}
-
-// Sayfa yüklendiğinde çalışır
-function init() {
-  renderCatalog();
-  renderBasket();
-  window.addEventListener("resize", closeDesktopDialog);
-  document.addEventListener("keydown", closeToastOnEscape);
 }
 
 // Rozette farklı yemekleri değil, toplam adedi gösterir.
